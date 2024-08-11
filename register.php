@@ -61,17 +61,17 @@
             $imageFileType = strtolower(pathinfo($uploadFile, PATHINFO_EXTENSION));
             
             // Check if file is an image
-            $check = getimagesize($_FILES['photo']['tmp_name']);
-            if ($check === false) {
-                echo "<div class='alert alert-danger'>File is not an image.</div>";
-                $uploadOk = 0;
-            }
+            // $check = getimagesize($_FILES['photo']['tmp_name']);
+            // if ($check === false) {
+            //     echo "<div class='alert alert-danger'>File is not an image.</div>";
+            //     $uploadOk = 0;
+            // }
             
-            // Check file size (limit to 5MB)
-            if ($_FILES['photo']['size'] > 5000000) {
-                echo "<div class='alert alert-danger'>File is too large.</div>";
-                $uploadOk = 0;
-            }
+            // // Check file size (limit to 5MB)
+            // if ($_FILES['photo']['size'] > 5000000) {
+            //     echo "<div class='alert alert-danger'>File is too large.</div>";
+            //     $uploadOk = 0;
+            // }
             
             // // Allow certain file formats
             // if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
