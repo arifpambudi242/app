@@ -1,3 +1,4 @@
+<?php session_start(); // Start the session ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,9 +23,6 @@
                     <a class="nav-link" href="profile.php">Profile</a>
                 </li>
             <li class="nav-item">
-                <a class="nav-link" href="profile.php">Profile</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="logout.php">Logout</a>
             </li>
             <?php endif; ?>
@@ -35,7 +33,6 @@
     <div class="container mt-4">
         <h2>Login</h2>
         <?php
-        session_start(); // Start the session
 
         // Redirect already logged-in users to the profile page
         if (isset($_SESSION['username'])) {
@@ -71,6 +68,7 @@
 
             if ($stmt->num_rows > 0) {
                 // Valid user, set session variables
+                session_start(); // Start the session
                 $_SESSION['username'] = $user;
                 header("Location: profile.php"); // Redirect to profile page
                 exit();
