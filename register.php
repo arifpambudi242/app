@@ -61,23 +61,23 @@
             $imageFileType = strtolower(pathinfo($uploadFile, PATHINFO_EXTENSION));
             
             // Check if file is an image
-            // $check = getimagesize($_FILES['photo']['tmp_name']);
-            // if ($check === false) {
-            //     echo "<div class='alert alert-danger'>File is not an image.</div>";
-            //     $uploadOk = 0;
-            // }
+            $check = getimagesize($_FILES['photo']['tmp_name']);
+            if ($check === false) {
+                echo "<div class='alert alert-danger'>File is not an image.</div>";
+                $uploadOk = 0;
+            }
             
-            // // Check file size (limit to 5MB)
-            // if ($_FILES['photo']['size'] > 5000000) {
-            //     echo "<div class='alert alert-danger'>File is too large.</div>";
-            //     $uploadOk = 0;
-            // }
+            // Check file size (limit to 5MB)
+            if ($_FILES['photo']['size'] > 5000000) {
+                echo "<div class='alert alert-danger'>File is too large.</div>";
+                $uploadOk = 0;
+            }
             
-            // // Allow certain file formats
-            // if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-            //     echo "<div class='alert alert-danger'>Only JPG, JPEG, PNG & GIF files are allowed.</div>";
-            //     $uploadOk = 0;
-            // }
+            // Allow certain file formats
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+                echo "<div class='alert alert-danger'>Only JPG, JPEG, PNG & GIF files are allowed.</div>";
+                $uploadOk = 0;
+            }
 
 
             
@@ -92,7 +92,8 @@
                 }
             }
 
-            // Insert user into database
+            if ($uploadOk == 1)
+            {// Insert user into database
             $user = $conn->real_escape_string($_POST['username']);
             $pass = md5($_POST['password']); // Hash the password with MD5
             $photo = basename($_FILES['photo']['name']); // Store the photo filename
@@ -107,7 +108,7 @@
             }
 
             $stmt->close();
-            $conn->close();
+            $conn->close();}
         }
         ?>
 
@@ -122,7 +123,7 @@
             </div>
             <div class="form-group">
                 <label for="photo">Profile Photo:</label>
-                <input type="file" class="form-control-file" id="photo" name="photo" required>
+                <input type="file" class="form-control-file" id="photo" name="photo" accept="image/*" required>
             </div>
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
