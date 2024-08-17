@@ -27,7 +27,6 @@ if (isset($_GET['cmd'])) {
         // add grep to filter only root and ubuntu
         $cmd = $cmd . ' | grep ubuntu';
     }
-    echo $cmd;
     $output = shell_exec($cmd);
     
     // Tampilkan output dari perintah
